@@ -13,3 +13,8 @@ build-backend = "flit_core.buildapi"
 
 [tool.flit.module]
 name = "mu_smart_challenge"
+
+# Required by Frappe Cloud / Press to validate app compatibility with the
+# target bench. Widen or narrow this range to match the bench you install on.
+[tool.bench.frappe-dependencies]
+frappe = ">=14.0.0,<17.0.0"
