@@ -1,0 +1,155 @@
+{
+ "actions": [],
+ "creation": "2026-09-08 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "challenge",
+  "question_number",
+  "column_break_head",
+  "category",
+  "option_format",
+  "is_active",
+  "section_break_scenario",
+  "scenario_title_ar",
+  "scenario_text_ar",
+  "column_break_scenario",
+  "scenario_title_en",
+  "scenario_text_en",
+  "section_break_options",
+  "options",
+  "section_break_flow",
+  "next_question"
+ ],
+ "fields": [
+  {
+   "description": "The challenge this question belongs to.",
+   "fieldname": "challenge",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Challenge",
+   "options": "Business Challenge",
+   "reqd": 1
+  },
+  {
+   "description": "Order of this question within the challenge (1, 2, 3 ...). The engine plays questions in ascending order.",
+   "fieldname": "question_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Question Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Problem category this scenario represents. Used later for analytics (most common problems).",
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Cash Flow\nInventory\nSales\nPurchasing\nReceivables\nExpenses\nProfitability\nEmployees\nProjects\nTax\nZATCA\nOperations\nManagement",
+   "reqd": 1
+  },
+  {
+   "default": "auto",
+   "description": "How options are rendered on WhatsApp. auto = engine decides (<=3 options -> buttons, >3 -> list). Force buttons or list if you prefer.",
+   "fieldname": "option_format",
+   "fieldtype": "Select",
+   "label": "Option Format",
+   "options": "auto\nbuttons\nlist"
+  },
+  {
+   "default": "0",
+   "description": "Only active questions are played.",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "section_break_scenario",
+   "fieldtype": "Section Break",
+   "label": "Scenario"
+  },
+  {
+   "description": "Short scenario header (Arabic), e.g. Day 12.",
+   "fieldname": "scenario_title_ar",
+   "fieldtype": "Data",
+   "label": "Scenario Title (AR)"
+  },
+  {
+   "description": "Full scenario narrative (Arabic) describing the situation the user faces.",
+   "fieldname": "scenario_text_ar",
+   "fieldtype": "Text",
+   "label": "Scenario Text (AR)"
+  },
+  {
+   "fieldname": "column_break_scenario",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Short scenario header (English), e.g. Day 12.",
+   "fieldname": "scenario_title_en",
+   "fieldtype": "Data",
+   "label": "Scenario Title (EN)"
+  },
+  {
+   "description": "Full scenario narrative (English) describing the situation the user faces.",
+   "fieldname": "scenario_text_en",
+   "fieldtype": "Text",
+   "label": "Scenario Text (EN)"
+  },
+  {
+   "fieldname": "section_break_options",
+   "fieldtype": "Section Break",
+   "label": "Options"
+  },
+  {
+   "description": "The selectable decisions for this scenario. 2-3 options render as buttons; 4-10 render as a list.",
+   "fieldname": "options",
+   "fieldtype": "Table",
+   "label": "Options",
+   "options": "Question Option",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_flow",
+   "fieldtype": "Section Break",
+   "label": "Flow (advanced)"
+  },
+  {
+   "description": "Optional. Force a specific next question (used for branching in later phases). Leave empty to play in question-number order.",
+   "fieldname": "next_question",
+   "fieldtype": "Link",
+   "label": "Next Question",
+   "options": "Business Challenge Question"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-09-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "MU Smart Challenge",
+ "name": "Business Challenge Question",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "creation": "2026-09-08 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "question",
+  "question_number",
+  "selected_option_id",
+  "score",
+  "column_break_ans",
+  "answered_at",
+  "section_break_impact",
+  "cash_impact",
+  "profit_impact",
+  "inventory_impact",
+  "column_break_impact",
+  "collection_impact",
+  "control_impact",
+  "compliance_impact"
+ ],
+ "fields": [
+  {
+   "description": "The question that was answered.",
+   "fieldname": "question",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Question",
+   "options": "Business Challenge Question"
+  },
+  {
+   "description": "Question order at the time it was answered (denormalised for easy reading).",
+   "fieldname": "question_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Question Number"
+  },
+  {
+   "description": "The option_id the user selected.",
+   "fieldname": "selected_option_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Selected Option ID"
+  },
+  {
+   "default": "0",
+   "description": "The chosen option's analytics score.",
+   "fieldname": "score",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Score"
+  },
+  {
+   "fieldname": "column_break_ans",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "When this answer was recorded.",
+   "fieldname": "answered_at",
+   "fieldtype": "Datetime",
+   "label": "Answered At"
+  },
+  {
+   "fieldname": "section_break_impact",
+   "fieldtype": "Section Break",
+   "label": "Indicator Impact of this answer"
+  },
+  {
+   "default": "0",
+   "fieldname": "cash_impact",
+   "fieldtype": "Int",
+   "label": "Cash Flow Impact"
+  },
+  {
+   "default": "0",
+   "fieldname": "profit_impact",
+   "fieldtype": "Int",
+   "label": "Profitability Impact"
+  },
+  {
+   "default": "0",
+   "fieldname": "inventory_impact",
+   "fieldtype": "Int",
+   "label": "Inventory Impact"
+  },
+  {
+   "fieldname": "column_break_impact",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "collection_impact",
+   "fieldtype": "Int",
+   "label": "Collection Impact"
+  },
+  {
+   "default": "0",
+   "fieldname": "control_impact",
+   "fieldtype": "Int",
+   "label": "Control Impact"
+  },
+  {
+   "default": "0",
+   "fieldname": "compliance_impact",
+   "fieldtype": "Int",
+   "label": "Compliance Impact"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-09-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "MU Smart Challenge",
+ "name": "Challenge Answer",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

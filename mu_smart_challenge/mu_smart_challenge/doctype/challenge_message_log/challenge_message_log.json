@@ -1,0 +1,86 @@
+{
+ "actions": [],
+ "creation": "2026-09-08 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "whatsapp_message_id",
+  "direction",
+  "column_break_head",
+  "session",
+  "timestamp",
+  "section_break_payload",
+  "payload"
+ ],
+ "fields": [
+  {
+   "description": "The WhatsApp message id. Checked before processing so a redelivered webhook is not counted twice.",
+   "fieldname": "whatsapp_message_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "WhatsApp Message ID",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "Whether this message was received from or sent to the player.",
+   "fieldname": "direction",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Direction",
+   "options": "in\nout"
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "The session this message belongs to, if known.",
+   "fieldname": "session",
+   "fieldtype": "Link",
+   "label": "Session",
+   "options": "Challenge Session"
+  },
+  {
+   "fieldname": "timestamp",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Timestamp"
+  },
+  {
+   "fieldname": "section_break_payload",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "Raw message content for diagnostics.",
+   "fieldname": "payload",
+   "fieldtype": "Small Text",
+   "label": "Payload"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-09-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "MU Smart Challenge",
+ "name": "Challenge Message Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

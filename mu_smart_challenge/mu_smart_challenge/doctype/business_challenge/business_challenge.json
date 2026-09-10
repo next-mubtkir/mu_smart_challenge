@@ -1,0 +1,176 @@
+{
+ "actions": [],
+ "autoname": "field:challenge_code",
+ "creation": "2026-09-08 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "challenge_name",
+  "challenge_code",
+  "column_break_head",
+  "business_type",
+  "is_active",
+  "version",
+  "section_break_titles",
+  "title_ar",
+  "title_en",
+  "column_break_titles",
+  "number_of_questions",
+  "estimated_duration",
+  "section_break_desc",
+  "description",
+  "section_break_messages",
+  "start_message_ar",
+  "start_message_en",
+  "column_break_messages",
+  "completion_message_ar",
+  "completion_message_en"
+ ],
+ "fields": [
+  {
+   "description": "Human-readable name of this challenge, e.g. Retail Store Management.",
+   "fieldname": "challenge_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Challenge Name",
+   "reqd": 1
+  },
+  {
+   "description": "Unique short code used as the primary key, e.g. RETAIL-001.",
+   "fieldname": "challenge_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Challenge Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Business sector this challenge simulates. Also used to tag the resulting Lead.",
+   "fieldname": "business_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Business Type",
+   "options": "Retail\nRestaurant\nContracting\nServices\nMaintenance\nEcommerce\nOther",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "description": "Only active challenges can be started by users.",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  },
+  {
+   "description": "Version tag for this challenge's content, e.g. v1. Stored on each session for traceability.",
+   "fieldname": "version",
+   "fieldtype": "Data",
+   "label": "Version"
+  },
+  {
+   "fieldname": "section_break_titles",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "Challenge title shown to the user in Arabic.",
+   "fieldname": "title_ar",
+   "fieldtype": "Data",
+   "label": "Title (AR)"
+  },
+  {
+   "description": "Challenge title shown to the user in English.",
+   "fieldname": "title_en",
+   "fieldtype": "Data",
+   "label": "Title (EN)"
+  },
+  {
+   "fieldname": "column_break_titles",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Informational count of questions in this challenge. The engine still reads the actual active questions at runtime.",
+   "fieldname": "number_of_questions",
+   "fieldtype": "Int",
+   "label": "Number of Questions"
+  },
+  {
+   "description": "Estimated time to finish, shown to the user, e.g. 4 minutes.",
+   "fieldname": "estimated_duration",
+   "fieldtype": "Data",
+   "label": "Estimated Duration"
+  },
+  {
+   "fieldname": "section_break_desc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "Internal description of the challenge (not sent to the user).",
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "section_break_messages",
+   "fieldtype": "Section Break",
+   "label": "Messages"
+  },
+  {
+   "description": "Opening message (Arabic) sent when the user starts this challenge, before the first scenario.",
+   "fieldname": "start_message_ar",
+   "fieldtype": "Small Text",
+   "label": "Start Message (AR)"
+  },
+  {
+   "description": "Opening message (English) sent when the user starts this challenge, before the first scenario.",
+   "fieldname": "start_message_en",
+   "fieldtype": "Small Text",
+   "label": "Start Message (EN)"
+  },
+  {
+   "fieldname": "column_break_messages",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Closing message (Arabic) sent after the final result and diagnosis.",
+   "fieldname": "completion_message_ar",
+   "fieldtype": "Small Text",
+   "label": "Completion Message (AR)"
+  },
+  {
+   "description": "Closing message (English) sent after the final result and diagnosis.",
+   "fieldname": "completion_message_en",
+   "fieldtype": "Small Text",
+   "label": "Completion Message (EN)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-09-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "MU Smart Challenge",
+ "name": "Business Challenge",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

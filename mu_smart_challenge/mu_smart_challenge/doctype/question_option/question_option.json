@@ -1,0 +1,144 @@
+{
+ "actions": [],
+ "creation": "2026-09-08 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "option_id",
+  "label_ar",
+  "label_en",
+  "column_break_effects",
+  "score",
+  "section_break_effects",
+  "cash_effect",
+  "profit_effect",
+  "inventory_effect",
+  "column_break_effects2",
+  "collection_effect",
+  "control_effect",
+  "compliance_effect",
+  "section_break_feedback",
+  "feedback_ar",
+  "feedback_en"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "description": "Stable machine id for this option, e.g. opt_a. Sent back by WhatsApp when the user taps this option; the engine matches on it.",
+   "fieldname": "option_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Option ID",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "description": "Option text shown to the user in Arabic (button/list label).",
+   "fieldname": "label_ar",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Label (AR)",
+   "reqd": 1
+  },
+  {
+   "description": "Option text shown to the user in English (button/list label).",
+   "fieldname": "label_en",
+   "fieldtype": "Data",
+   "label": "Label (EN)"
+  },
+  {
+   "fieldname": "column_break_effects",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "description": "Overall answer quality score for analytics (not one of the six indicators).",
+   "fieldname": "score",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Score"
+  },
+  {
+   "fieldname": "section_break_effects",
+   "fieldtype": "Section Break",
+   "label": "Indicator Effects (added to the running indicator, clamped 0-100)"
+  },
+  {
+   "default": "0",
+   "description": "Change applied to the Cash Flow indicator when this option is chosen (can be negative).",
+   "fieldname": "cash_effect",
+   "fieldtype": "Int",
+   "label": "Cash Flow Effect"
+  },
+  {
+   "default": "0",
+   "description": "Change applied to the Profitability indicator when this option is chosen (can be negative).",
+   "fieldname": "profit_effect",
+   "fieldtype": "Int",
+   "label": "Profitability Effect"
+  },
+  {
+   "default": "0",
+   "description": "Change applied to the Inventory indicator when this option is chosen (can be negative).",
+   "fieldname": "inventory_effect",
+   "fieldtype": "Int",
+   "label": "Inventory Effect"
+  },
+  {
+   "fieldname": "column_break_effects2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Change applied to the Collection indicator when this option is chosen (can be negative).",
+   "fieldname": "collection_effect",
+   "fieldtype": "Int",
+   "label": "Collection Effect"
+  },
+  {
+   "default": "0",
+   "description": "Change applied to the Control indicator when this option is chosen (can be negative).",
+   "fieldname": "control_effect",
+   "fieldtype": "Int",
+   "label": "Control Effect"
+  },
+  {
+   "default": "0",
+   "description": "Change applied to the Compliance indicator when this option is chosen (can be negative).",
+   "fieldname": "compliance_effect",
+   "fieldtype": "Int",
+   "label": "Compliance Effect"
+  },
+  {
+   "fieldname": "section_break_feedback",
+   "fieldtype": "Section Break",
+   "label": "Feedback shown after the user picks this option"
+  },
+  {
+   "description": "Short feedback message (Arabic) sent right after this option is chosen.",
+   "fieldname": "feedback_ar",
+   "fieldtype": "Small Text",
+   "label": "Feedback (AR)"
+  },
+  {
+   "description": "Short feedback message (English) sent right after this option is chosen.",
+   "fieldname": "feedback_en",
+   "fieldtype": "Small Text",
+   "label": "Feedback (EN)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-09-08 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "MU Smart Challenge",
+ "name": "Question Option",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

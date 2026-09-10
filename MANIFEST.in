@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include mu_smart_challenge *.css
+recursive-include mu_smart_challenge *.csv
+recursive-include mu_smart_challenge *.html
+recursive-include mu_smart_challenge *.ico
+recursive-include mu_smart_challenge *.js
+recursive-include mu_smart_challenge *.json
+recursive-include mu_smart_challenge *.md
+recursive-include mu_smart_challenge *.png
+recursive-include mu_smart_challenge *.py
+recursive-include mu_smart_challenge *.svg
+recursive-include mu_smart_challenge *.txt
+recursive-exclude mu_smart_challenge *.pyc
