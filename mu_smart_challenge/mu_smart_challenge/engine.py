@@ -89,20 +89,47 @@ def _log_message(message_id, direction, session=None, payload=None):
 # ---------------------------------------------------------------------------
 # Sending (create an Outgoing WhatsApp Message; the channel app sends it)
 # ---------------------------------------------------------------------------
-def _send_text(to, body):
-    """Send a plain text message via the channel app."""
-    frappe.get_doc(
-        {
-            "doctype": "WhatsApp Message",
-            "type": "Outgoing",
-            "to": to,
-            "content_type": "text",
-            "message": body,
-        }
-    ).insert(ignore_permissions=True)
+def _channel_settings(session=None):
+    """Resolve (channel, instance) from the session's challenge, else defaults.
+
+    Falls back to the active challenge when the session has no challenge yet
+    (e.g. the very first onboarding messages).
+    """
+    challenge = None
+    try:
+        if session and session.get("challenge"):
+            challenge = frappe.get_cached_doc("Business Challenge", session.challenge)
+        else:
+            challenge = _active_challenge()
+    except Exception:
+        challenge = None
+    if not challenge:
+        return "Evolution", None
+    return (challenge.get("channel") or "Evolution"), challenge.get("send_from_instance")
 
 
-def _send_options(to, body, options, fmt):
+def _send_text(to, body, session=None):
+    """Send a plain text message via the channel app.
+
+    Routes through the channel selected on the Business Challenge: Evolution
+    (with its instance) or Meta. The channel app's WhatsApp Message handles the
+    actual send based on these fields.
+    """
+    channel, instance = _channel_settings(session)
+    payload = {
+        "doctype": "WhatsApp Message",
+        "type": "Outgoing",
+        "to": to,
+        "content_type": "text",
+        "message": body,
+        "channel": channel,
+    }
+    if channel == "Evolution" and instance:
+        payload["send_from_instance"] = instance
+    frappe.get_doc(payload).insert(ignore_permissions=True)
+
+
+def _send_options(to, body, options, fmt, session=None):
     """Send a decision prompt.
 
     We render options as a numbered text prompt: it works identically on Meta
@@ -116,7 +143,7 @@ def _send_options(to, body, options, fmt):
         lines.append(f"{index}. {_label(option)}")
     lines.append("")
     lines.append(_("Reply with the option number."))
-    _send_text(to, "\n".join(lines))
+    _send_text(to, "\n".join(lines), session=session)
 
 
 def _(text):
@@ -205,6 +232,20 @@ def handle_incoming_message(doc, method=None):
 
         text = _extract_text(doc)
         session = _get_or_create_session(mobile, doc.get("profile_name"))
+
+        # Trigger gate: a brand-new session only starts when the message matches
+        # the challenge's trigger keyword (e.g. "تحدي"). This prevents any stray
+        # message from starting a challenge — important when the tester's number
+        # already has a conversation with the instance. Once a session is past
+        # NEW/WAITING_START, every message flows through the state machine.
+        if (session.status or "NEW") in ("NEW", "WAITING_START"):
+            challenge = _active_challenge()
+            keyword = (challenge.get("trigger_keyword") or "").strip() if challenge else ""
+            if keyword and text.strip() != keyword:
+                # Not the start word — log and ignore, don't begin.
+                _log_message(message_id, "in", session.name, text)
+                return
+
         _log_message(message_id, "in", session.name, text)
 
         _advance(session, text)
@@ -272,27 +313,27 @@ def _begin(session):
     """NEW -> ask for business type (first onboarding step)."""
     challenge = _active_challenge()
     if not challenge:
-        _send_text(session.mobile_number, "لا يوجد تحدٍ مفعّل حالياً. تواصل معنا لاحقاً 🙏")
+        _send_text(session.mobile_number, "لا يوجد تحدٍ مفعّل حالياً. تواصل معنا لاحقاً 🙏", session=session)
         return
 
     session.challenge = challenge.name
     session.challenge_version = challenge.version
     start = _t(challenge, "start_message") or "أهلاً بك في تحدي إدارة البزنس 👋"
-    _send_text(session.mobile_number, start)
+    _send_text(session.mobile_number, start, session=session)
     _ask_business_type(session)
 
 
 def _ask_business_type(session):
     """Onboarding step 1 — business type (separate step, before gameplay)."""
     session.status = "WAITING_BUSINESS_TYPE"
-    _send_text(session.mobile_number, "ما نوع نشاطك التجاري؟ (مثال: تجزئة، مطعم، خدمات)")
+    _send_text(session.mobile_number, "ما نوع نشاطك التجاري؟ (مثال: تجزئة، مطعم، خدمات)", session=session)
 
 
 def _ask_company_size(session):
     """Onboarding step 2 — company size (separate step, before gameplay)."""
     session.status = "WAITING_COMPANY_SIZE"
     sizes = " / ".join(COMPANY_SIZES)
-    _send_text(session.mobile_number, f"كم عدد موظفيك تقريباً؟\n{sizes}")
+    _send_text(session.mobile_number, f"كم عدد موظفيك تقريباً؟\n{sizes}", session=session)
 
 
 def _start_gameplay(session):
@@ -323,6 +364,7 @@ def _send_next_question(session):
         prompt,
         question.options,
         question.resolved_format(),
+        session=session,
     )
 
 
@@ -340,12 +382,13 @@ def _handle_answer(session, text):
     option = _match_option(current.options, text)
     if not option:
         # Unexpected input: re-show the same options, keep the state.
-        _send_text(session.mobile_number, "😄 هذا هو التحدي! اختر الأقرب لما ستفعله:")
+        _send_text(session.mobile_number, "😄 هذا هو التحدي! اختر الأقرب لما ستفعله:", session=session)
         _send_options(
             session.mobile_number,
             _t(current, "scenario_text"),
             current.options,
             current.resolved_format(),
+            session=session,
         )
         return
 
@@ -353,7 +396,7 @@ def _handle_answer(session, text):
 
     feedback = _feedback(option)
     if feedback:
-        _send_text(session.mobile_number, feedback)
+        _send_text(session.mobile_number, feedback, session=session)
 
     session.status = "PLAYING"
     _send_next_question(session)
@@ -401,7 +444,7 @@ def _finish(session):
     challenge = frappe.get_doc("Business Challenge", session.challenge)
     completion = _t(challenge, "completion_message")
     if completion:
-        _send_text(session.mobile_number, completion)
+        _send_text(session.mobile_number, completion, session=session)
 
     _create_lead(session)
     session.status = "COMPLETED"
@@ -420,7 +463,7 @@ def _send_result(session, total):
         f"📊 الرقابة: {session.control}/100",
         f"🧾 الامتثال: {session.compliance}/100",
     ]
-    _send_text(session.mobile_number, "\n".join(lines))
+    _send_text(session.mobile_number, "\n".join(lines), session=session)
 
 
 def _send_diagnosis(session):
@@ -435,7 +478,7 @@ def _send_diagnosis(session):
         "Compliance": "الامتثال",
     }
     risks = "\n".join(f"• {names_ar.get(label, label)}" for label, _f, _v in weakest)
-    _send_text(session.mobile_number, f"🔍 أكبر خطرين على مشروعك:\n{risks}")
+    _send_text(session.mobile_number, f"🔍 أكبر خطرين على مشروعك:\n{risks}", session=session)
 
 
 # ---------------------------------------------------------------------------

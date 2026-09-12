@@ -12,6 +12,11 @@
   "business_type",
   "is_active",
   "version",
+  "section_break_channel",
+  "channel",
+  "send_from_instance",
+  "column_break_channel",
+  "trigger_keyword",
   "section_break_titles",
   "title_ar",
   "title_en",
@@ -146,6 +151,39 @@
    "fieldname": "completion_message_en",
    "fieldtype": "Small Text",
    "label": "Completion Message (EN)"
+  },
+  {
+   "fieldname": "section_break_channel",
+   "fieldtype": "Section Break",
+   "label": "Channel & Trigger"
+  },
+  {
+   "fieldname": "channel",
+   "fieldtype": "Select",
+   "label": "Channel",
+   "options": "Meta\nEvolution",
+   "default": "Evolution",
+   "description": "Which WhatsApp channel the engine uses to send replies for this challenge."
+  },
+  {
+   "fieldname": "send_from_instance",
+   "fieldtype": "Link",
+   "label": "Send From Instance",
+   "options": "Whatsapp Instance",
+   "depends_on": "eval:doc.channel=='Evolution'",
+   "mandatory_depends_on": "eval:doc.channel=='Evolution'",
+   "description": "Evolution instance used to send this challenge's messages."
+  },
+  {
+   "fieldname": "column_break_channel",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trigger_keyword",
+   "fieldtype": "Data",
+   "label": "Trigger Keyword",
+   "default": "تحدي",
+   "description": "The challenge starts only when an incoming message equals this word (e.g. تحدي). Leave blank to start on any message."
   }
  ],
  "index_web_pages_for_search": 1,
