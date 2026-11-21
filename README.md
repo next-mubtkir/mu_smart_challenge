@@ -1,3 +1,21 @@
+<!-- MUBTKIR-UNIFIED-README-START -->
+## محرك تحدي الأعمال الذكي عبر واتساب | MU Smart Challenge
+
+محرك محاكاة أعمال تفاعلي عبر واتساب لتأهيل العملاء المحتملين وربطهم تلقائياً بنظام ERPNext CRM.
+* **الفئة المستهدفة:** فرق التسويق والمبيعات والشركات الراغبة في أتمتة استقطاب العملاء.
+
+WhatsApp interactive business-simulation challenge engine that qualifies and generates ERPNext CRM leads.
+* **Target Audience:** Marketing and sales teams automating lead generation via WhatsApp.
+
+### تواصل معنا | Contact & Sales — [مبتكر للأنظمة السحابية | Mubtkir ERP](https://mubtkir.com)
+
+* 🌐 **الموقع الرسمي | Website:** [Mubtkir ERP — حلول ERPNext السحابية](https://mubtkir.com)
+* 📧 **البريد الإلكتروني | Email:** [sales@mubtkir.com](mailto:sales@mubtkir.com)
+* 📱 **الجوال | Mobile:** [+966547706865](tel:+966547706865)
+* 💬 **واتساب | WhatsApp:** [+966126810486](https://wa.me/966126810486)
+
+<!-- MUBTKIR-UNIFIED-README-END -->
+
 # MU Smart Challenge (`mu_smart_challenge`)
 
 WhatsApp business-simulation challenge engine for ERPNext/Frappe. A player runs
